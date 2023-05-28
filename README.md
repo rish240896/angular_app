@@ -61,25 +61,25 @@
 For example:
 
 **app.component.ts**
-export class AppComponent {
+```export class AppComponent {
   title = 'blog';
   getValue() {
     return "Get Function Data";
   }
-}
+}```
 
 **app.component.html**
-<h1>{{title}}</h1>
-<p>{{getValue()}}</p>
+```<h1>{{title}}</h1>
+<p>{{getValue()}}</p>```
 
 ### Note: What we cannot do in Interpolation?
 -----------------------------------------
 
 **app.component.html**
-<h1>{{title="Hello"}}</h1>
+```<h1>{{title="Hello"}}</h1>
 <h1>{{typeof title}}</h1>
 <h1>{{data++}}</h1>
-<h1>{{new title}}</h1>
+<h1>{{new title}}</h1>```
 
 ## Output:
 
@@ -92,4 +92,4 @@ export class AppComponent {
 
 **app.component.html**
 
-<h1 class="{{title}}">{{title="Hello"}}</h1>
+```<h1 class="{{title}}">{{title="Hello"}}</h1>```
