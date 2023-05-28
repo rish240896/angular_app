@@ -61,13 +61,13 @@
 For example:
 
 **app.component.ts**
-
+```typescript
 export class AppComponent {
   title = 'blog';
   getValue() {
     return "Get Function Data";
   }
-}
+}```
 
 **app.component.html**
 
