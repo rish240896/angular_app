@@ -61,7 +61,7 @@
 For example:
 
 **app.component.ts**
-<br />
+
 export class AppComponent {
   title = 'blog';
   getValue() {
@@ -70,7 +70,7 @@ export class AppComponent {
 }
 
 **app.component.html**
-<br />
+
 ```<h1>{{title}}</h1>```<br />
 ```<p>{{getValue()}}</p>```<br />
 
@@ -78,7 +78,7 @@ export class AppComponent {
 -----------------------------------------
 
 **app.component.html**
-<br />
+
 ```<h1>{{title="Hello"}}</h1>```<br />
 ```<h1>{{typeof title}}</h1>```<br />
 ```<h1>{{data++}}</h1>```<br />
