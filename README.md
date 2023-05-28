@@ -79,7 +79,6 @@ export class AppComponent {
 ```
 
 ### Note: What we cannot do in Interpolation?
------------------------------------------
 
 **app.component.html**
 
