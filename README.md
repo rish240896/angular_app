@@ -92,4 +92,4 @@ export class AppComponent {
 
 **app.component.html**
 
-<h1 class="{{title}}">{{title="Hello"}}</h1>
+```<h1 class="{{title}}">{{title="Hello"}}</h1>
