@@ -1,7 +1,7 @@
 # angular_practice
 
-# Important Points about Angular 12
----------------------------------
+# Important Points about Angular
+--------------------------------
 
 - Angular creates single page applications. (No browser reloading)
 - Developed by Google
