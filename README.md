@@ -68,7 +68,7 @@ export class AppComponent {
   getValue() {
     return "Get Function Data";
   }
-};
+}
 ```
 
 **app.component.html**
