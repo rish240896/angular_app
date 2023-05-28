@@ -67,7 +67,7 @@ For example:
   getValue() {
     return "Get Function Data";
   }
-}```
+}
 
 **app.component.html**
 <br />
