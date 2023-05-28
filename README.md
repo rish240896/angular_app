@@ -61,12 +61,12 @@
 For example:
 
 **app.component.ts**
-```export class AppComponent {
+``export class AppComponent {
   title = 'blog';
   getValue() {
     return "Get Function Data";
   }
-}```
+}``
 
 **app.component.html**
 ```<h1>{{title}}</h1>
