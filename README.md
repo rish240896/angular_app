@@ -76,10 +76,10 @@ export class AppComponent {
 -----------------------------------------
 
 **app.component.html**
-<h1>{{title="Hello"}}</h1>
-<h1>{{typeof title}}</h1>
-<h1>{{data++}}</h1>
-<h1>{{new title}}</h1>
+```<h1>{{title="Hello"}}</h1>```
+```<h1>{{typeof title}}</h1>```
+```<h1>{{data++}}</h1>```
+```<h1>{{new title}}</h1>```
 
 ## Output:
 
