@@ -1,0 +1,228 @@
+<app-header></app-header>
+
+<h1>{{title}}</h1>
+<app-login></app-login>
+
+<button (click)="getName('rishabh')">Click Me</button>
+<br><br>
+<input type="text" #box (keyup)="getEvent(box.value)" placeholder="Enter Here"/>
+
+<input type="text" #box1 (blur)="getEvent(box1.value)" placeholder="Enter Here"/>
+
+<input type="text" #box2 (input)="getEvent(box2.value)" placeholder="Enter Here"/>
+
+<h1 (mouseover)="getEvent('rishabh')">Mouse Over Event</h1>
+
+<h1 (mouseleave)="getEvent('rishabh ji')">Mouse Leave Event</h1>
+
+<input type="text" #box3 (input)="getDisplayVal(box3.value)" placeholder="Enter Here"/>
+
+<p>Name is : {{displayVal}}</p>
+
+<input type="text" #box4 placeholder="Enter Here"/>
+<input type="text" #box5 placeholder="Enter Here"/>
+<button (click)="getDisplayVal(box4.value)">Click</button>
+<button (click)="getDisplayVal(box5.name)" name="username">Click</button>
+<p>Name is : {{displayVal}}</p>
+<p>Name is : {{displayVal}}</p>
+
+<button (click)="getCountVal('add')">++</button>
+<h1>{{countValue}}</h1>
+<button (click)="getCountVal('minus')">--</button>
+
+<p>Property Binding vs Interpolation</p>
+
+<input type="text" value={{name}} disabled={{disable}}>
+<input type="text" [value]=name [disabled]=disable>
+
+<p>If else condition</p>
+
+<h1 *ngIf="show=='hello'; then ifBlock else elseBlock"></h1>
+
+<ng-template #ifBlock>
+  <h1>If condition</h1>
+</ng-template>
+<ng-template #elseBlock>
+  <h1>Else condition</h1>
+</ng-template>
+
+<ng-template [ngIf]="color==='red'">
+  <h1 style="color: red;">Red Color</h1>
+</ng-template>
+<ng-template [ngIf]="color==='green'">
+  <h1 style="color: green;">Red Color</h1>
+</ng-template>
+<ng-template [ngIf]="color==='blue'">
+  <h1 style="color: blue;">Red Color</h1>
+</ng-template>
+
+<div [ngSwitch]="color">
+  <h1 *ngSwitchCase="'red'" style="color: red;">Red Color</h1>
+  <h1 *ngSwitchCase="'green'" style="color: green;">Red Color</h1>
+  <h1 *ngSwitchCase="'blue'" style="color: blue;">Red Color</h1>
+  <h1 *ngSwitchDefault="" >Unknown Color</h1>
+</div>
+
+<p>For Loop</p>
+
+<h2 *ngFor="let item of users">Name is : {{item}}</h2>
+
+<h2 *ngFor="let item of userDetails">User is : {{item.name}} -- City is : {{item.city}} -- Age is : {{item.age}}</h2>
+
+<ul *ngFor="let user of newUserDetails">
+  <li>Name is: {{user.name}}</li>
+  <li>City is: {{user.city}}</li>
+  <li>Social Accounts</li>
+  <ul *ngFor="let account of user.socialAccounts">
+    <li>{{account}}</li>
+  </ul>
+</ul>
+
+<h1 [style.color]="color" [style.backgroundColor]="bgcolor">Rishabh</h1>
+<button (click)="updateColor()">Update Color</button>
+
+<p>Registration Form</p>
+
+<form #basicForm="ngForm" (ngSubmit)="getFormData(basicForm.value)">
+  <input type="text" ngModel name="user" placeholder="Enter Username">
+  <br><br>
+  <input type="text" ngModel name="email" placeholder="Enter User Email">
+  <br><br>
+  <input type="text" ngModel name="password" placeholder="Enter User Password">
+  <br><br>
+  <button>Register</button>
+
+</form>
+
+<p>User Name: {{addingData.user}}</p>
+<p>User Email: {{addingData.email}}</p>
+<p>User Password: {{addingData.password}}</p>
+
+<p>Hide/Show</p>
+
+<button (click)="toggleFun()">Toggle</button>
+
+<h1 *ngIf="myFlag">Toggle This</h1>
+
+<h1>Bootstrap Component</h1>
+
+<p>
+	<ngb-alert [dismissible]="false">
+		<strong>Warning!</strong> Better check yourself, you're not looking too good.
+	</ngb-alert>
+</p>
+
+<h1>Material-UI</h1>
+
+<mat-slider min="1" max="5" step="0.5" value="1.5">
+  <input matSliderThumb>
+</mat-slider>
+
+<h1>TODO List</h1>
+
+<input type="text" placeholder="Enter Note" #task>
+
+<button (click)="addTask(task.value)">Add Task</button>
+
+<br><br>
+<ul *ngFor="let item of list">
+  <li>{{item.name}} <button (click)="deleteTask(item.id)">Remove</button> </li>
+</ul>
+
+<h1>Pass Data Child to Component</h1>
+
+<app-child [item] ="newData" ></app-child>
+<button (click)="changeVal()">Update Child Component</button>
+
+<h1>Reusable Component</h1>
+
+<ul *ngFor="let user of userDetails">
+  <app-user-details [item]="user"></app-user-details>
+</ul>
+
+<h1>{{updatedVal}}</h1>
+
+<app-child (updateDataEvent)="updateData($event)"></app-child>
+
+<br><br>
+
+<input type="text" [(ngModel)]="bindingName">
+
+<h1>{{bindingName}}</h1>
+
+<input type="text" #box8 name="name" placeholder="Enter Name">
+<button (click)="getValue(box8)">Get Value</button>
+
+<h1>{{title | lowercase}}</h1>
+<h1>{{title | uppercase}}</h1>
+<h1>{{todayDate}}</h1>
+<h1>{{todayDate | date}}</h1>
+<h1>{{todayDate | date : 'fullDate'}}</h1>
+
+<h1>{{title | slice : 3 : 6}}</h1>
+<h1>{{title | slice : 3 : 6 | uppercase}}</h1>
+
+<h1>{{userObj | json | uppercase}}</h1>
+<h1>{{2.3 | number : '3.3-5'}}</h1>
+<h2>{{20 | currency:'USD'}}</h2>
+<h2>{{20 | currency:'INR'}}</h2>
+
+<h1>{{20 | usdToinr : 82.56}}</h1>
+
+<form #loginForm="ngForm" (ngSubmit)="userLogin(loginForm.value)">
+  <input type="text" required #username="ngModel" pattern="[a-zA-Z]+$" ngModel placeholder="Enter Username" name="username">
+  <br>
+  <span *ngIf="username.invalid && username.touched" style="color: red;">Please Enter Valid Input</span>
+  <br>
+  <input type="password" required #password="ngModel" minlength="2" ngModel placeholder="Enter Password" name="password">
+  <br>
+  <span *ngIf="password.invalid && password.touched" style="color: red;">Please Enter Valid Input</span>
+  <br>
+  <button [disabled]="loginForm.invalid">Login</button>
+</form>
+
+<button (click)="userLogin(loginForm.value)">Outside Form Login Button</button>
+
+<h1>Reactive Form</h1>
+
+<form [formGroup]="loginForm1" (ngSubmit)="loginUserReactive()">
+  <input type="text" placeholder="Enter Username" formControlName="username1">
+  <br>
+  <span *ngIf="username1 && username1.invalid && username1.touched" style="color: red;">This Fields is required.</span>
+  <br>
+  <input type="password" placeholder="Enter Password" formControlName="password1">
+  <br>
+  <span *ngIf="password1 && password1.invalid && password1.touched" style="color: red;">Please Enter Valid Input</span>
+  <br>
+  <button [disabled]="loginForm1.invalid">Submit Reactive Form</button>
+</form>
+
+<h1 appRedEl>Own Directive</h1>
+<p appRedEl>Using Directive for practice</p>
+
+<h1>Routing</h1>
+
+<a routerLink="">Home</a>
+<br>
+<a routerLink="user">User</a>
+<br>
+<a routerLink="about">About</a>
+<br>
+<router-outlet></router-outlet>
+
+<br>
+<br>
+<a routerLink="user/10">Rishabh</a>
+<br>
+<a routerLink="user/11">Akash</a>
+<br>
+<a routerLink="user/12">Vikas</a>
+<br>
+
+<ul>
+  <li *ngFor="let user of storingUsersData">
+    {{user.name}} : {{user.age}}
+  </li>
+</ul>
+
+<app-footer></app-footer>
