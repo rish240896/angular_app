@@ -1,4 +1,4 @@
-# angular_practice
+# angular_app
 
 # Important Points about Angular
 --------------------------------
