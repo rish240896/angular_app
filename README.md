@@ -83,10 +83,12 @@ export class AppComponent {
 
 **app.component.html**
 
-```<h1>{{title="Hello"}}</h1>```<br />
-```<h1>{{typeof title}}</h1>```<br />
-```<h1>{{data++}}</h1>```<br />
-```<h1>{{new title}}</h1>```<br />
+```html
+<h1>{{title="Hello"}}</h1>
+<h1>{{typeof title}}</h1>
+<h1>{{data++}}</h1>
+<h1>{{new title}}</h1>
+```
 
 ## Output:
 
@@ -99,4 +101,6 @@ export class AppComponent {
 
 **app.component.html**
 
-```<h1 class="{{title}}">{{title="Hello"}}</h1>```
+```html
+<h1 class="{{title}}">{{title="Hello"}}</h1>
+```
