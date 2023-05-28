@@ -73,8 +73,10 @@ export class AppComponent {
 
 **app.component.html**
 
-```<h1>{{title}}</h1>```<br />
-```<p>{{getValue()}}</p>```<br />
+```html
+<h1>{{title}}</h1>
+<p>{{getValue()}}</p>
+```
 
 ### Note: What we cannot do in Interpolation?
 -----------------------------------------
