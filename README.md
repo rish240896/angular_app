@@ -1253,9 +1253,9 @@ export class FooterComponent implements OnInit {
 </div>
 ```
 
-## GET data from API and display\
+## GET data from API and display
 
-- Component ==> Service ==> HttpModule ==> Server
+- Component ==> Service ==> HttpModule ==> Server\
   |_____________________________|			      |
 			      Angular						          Any Language
 
