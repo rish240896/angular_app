@@ -538,3 +538,168 @@ deleteTask(id: number) {
   <li>{{item.name}} <button (click)="deleteTask(item.id)">Remove</button></li>
 </ul>
 ```
+
+## Pass Data Child to Component
+
+### Parent Component
+
+```typescript
+newData = 10;
+
+changeVal() {
+  this.newData = Math.floor(Math.random() * 10);
+}
+```
+
+```html
+<app-child [item]="newData"></app-child>
+<button (click)="changeVal()">Update Child Component</button>
+```
+
+### Child Component
+
+```typescript
+import { Component, OnInit, Input } from '@angular/core';
+
+export class ChildComponent implements OnInit {
+
+  constructor() { }
+
+  @Input() item = 0;
+
+  ngOnInit(): void {
+
+  }
+}
+```
+
+```html
+<h1>{{item}}</h1>
+```
+
+## Reusable Component
+
+- Create a child component and use it in the parent component.
+- If in the future we want to use the app-user-details list, just put `<app-user-details [item]="user"></app-user-details>` line, and it will automatically display all users.
+
+### Parent Component
+
+```html
+<ul *ngFor="let user of userDetails">
+  <app-user-details [item]="user"></app-user-details>
+</ul>
+```
+
+```typescript
+userDetails = [
+  {
+    name: 'Rishabh',
+    city: 'Lucknow',
+    age: '26'
+  },
+  {
+    name: 'Vikas',
+    city: 'Etawah',
+    age: '26'
+  },
+  {
+    name: 'Akash',
+    city: 'Allahabad',
+    age: '25'
+  }
+];
+```
+
+### Child Component
+
+```typescript
+import { Component, OnInit, Input } from '@angular/core';
+
+export class UserDetailsComponent implements OnInit {
+
+  constructor() { }
+
+  @Input() item: { name: string, city: string, age: string } = { name: '', city: '', age: '' };
+
+  ngOnInit(): void {
+
+  }
+}
+```
+
+```html
+<ul>
+  <li>{{item.name}}</li>
+  <li>{{item.city}}</li>
+  <li>{{item.age}}</li>
+</ul>
+```
+
+## Send Data Child to Parent Component
+
+### Parent Component
+
+```typescript
+updatedVal = "No value";
+
+updateData(item: string) {
+  console.log(item);
+  this.updatedVal = item;
+}
+```
+
+```html
+<h1>{{updatedVal}}</h1>
+<app-child (updateDataEvent)="updateData($event)"></app-child>
+```
+
+### Child Component
+
+```typescript
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+
+export class ChildComponent implements OnInit {
+
+  constructor() { }
+
+  @Output() updateDataEvent = new EventEmitter<string>();
+
+  ngOnInit(): void {
+
+  }
+}
+```
+
+```html
+<input type="text" placeholder="Enter Value" #box>
+<button (click)="updateDataEvent.emit(box.value)">Update existing Data</button>
+```
+
+## Two-Way Binding
+
+- Updating and displaying a property at the same time.
+
+```typescript
+bindingName: any;
+```
+
+```html
+<input type="text" [(ngModel)]="bindingName"> <!-- Binding -->
+<h1>{{bindingName}}</h1> <!-- Property -->
+```
+
+## Template Reference Variable
+
+- We can get attributes, placeholder, and values from the input field using a Template Reference Variable.
+- We can also send it to the .ts file from HTML using a function.
+
+```typescript
+getValue(val8: HTMLInputElement) {
+  console.log(val8);
+}
+```
+
+```html
+<input type="text" #box8 name="name" placeholder="Enter Name">
+<button (click)="getValue(box8)">Get Value</button>
+```
