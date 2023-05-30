@@ -1257,7 +1257,7 @@ export class FooterComponent implements OnInit {
 
 <pre>
 Component ==> Service ==> HttpModule ==> Server
-|____________________________|			      |
+|____________________________|			|
       Angular                         Any Language
 </pre>
 
