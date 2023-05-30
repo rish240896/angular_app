@@ -840,6 +840,129 @@ export class UsdToinrPipe implements PipeTransform {
 <h1>{{20 | usdToinr : 82.56}}</h1>
 ```
 
+## Form introduction
 
+- To submit any information to Database but angular cannot connect to database. We send data to API and API updates it to the database. For example, Login, Signup, Post, Google Search is also a type of form, etc.
+- Forms Type in Angular
+1. Template-driven form => Mostly work done in the Component template. (Work with Html Page)
+2. Reactive Form => Mostly work done in the component class. (Work with TS File)
+- Data Flow with Forms
+Template ==> Class ==> Service(API) ==> Database
 
+### 1. Template-driven form
 
+- Form Handling done in the HTML Page known as Template-driven Form. For example, setting and getting values, showing errors, applying validations all done in the HTML Page.
+- First, we need to import FormsModule in app.module.ts file.
+
+```typescript
+userLogin(item: any) {
+    console.log(item);
+}
+```
+
+```html
+<form #loginForm="ngForm" (ngSubmit)="userLogin(loginForm.value)">
+    <input type="text" ngModel placeholder="Enter Username" name="username">
+    <br><br>
+    <input type="password" ngModel placeholder="Enter Password" name="password">
+    <br><br>
+    <button>Login</button>
+</form>
+
+<button (click)="userLogin(loginForm.value)">Outside Form Login Button</button>
+```
+
+- Note: Using controls, we get all fields data for the form
+
+```html
+<form #loginForm="ngForm" (ngSubmit)="userLogin(loginForm.controls)">
+    <!-- Form -->
+</form>
+```
+
+## Template-driven form Validations
+
+```html
+<form #loginForm="ngForm" (ngSubmit)="userLogin(loginForm.value)">
+    <input type="text" required #username="ngModel" pattern="[a-zA-Z]+$" ngModel placeholder="Enter Username" name="username">
+    <br>
+    <span *ngIf="username.invalid && username.touched" style="color: red;">Please Enter Valid Input</span>
+    <br>
+    <input type="password" required #password="ngModel" minlength="2" ngModel placeholder="Enter Password" name="password">
+    <br>
+    <span *ngIf="password.invalid && password.touched" style="color: red;">Please Enter Valid Input</span>
+    <br>
+    <button [disabled]="loginForm.invalid">Login</button>
+</form>
+```
+
+## Reactive Form in Angular
+
+- Import ReactiveFormsModule inside app.module.ts file.
+- Now go inside .ts file for form and import FormControl and FormGroup.
+
+```typescript
+import {FormControl, FormGroup} from '@angular/forms';
+
+loginForm1 = new FormGroup({
+    // username:new FormControl(''),
+    // password:new FormControl('')
+    username: new FormControl('admin'), // setting default values in the form
+    password: new FormControl('admin123')
+})
+
+loginUserReactive() {
+    console.log(this.loginForm1.value);
+}
+```
+
+```html
+<form [formGroup]="loginForm1" (ngSubmit)="loginUserReactive()">
+    <input type="text" placeholder="Enter Username" formControlName="username">
+    <br><br>
+    <input type="password" placeholder="Enter Password" formControlName="password">
+    <br><br>
+    <button>Submit Reactive Form</button>
+</form>
+```
+
+## Reactive Form Validations
+
+- First Import Validators and then apply validations and define getter for fields and show errors and Disable button.
+
+```typescript
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+
+loginForm1 = new FormGroup({
+    username1: new FormControl('', [Validators.required, Validators.email]),
+    password1: new FormControl('', [Validators.required, Validators.minLength(5)])
+    // username:new FormControl('admin'), // setting default values in form
+    // password:new FormControl('admin123')
+})
+
+loginUserReactive() {
+    console.log(this.loginForm1.value);
+}
+
+get username1() {
+    return this.loginForm1.get('username1');
+}
+
+get password1() {
+    return this.loginForm1.get('password1');
+}
+```
+
+```html
+<form [formGroup]="loginForm1" (ngSubmit)="loginUserReactive()">
+    <input type="text" placeholder="Enter Username" formControlName="username1">
+    <br>
+    <span *ngIf="username1 && username1.invalid && username1.touched" style="color: red;">This Fields is required.</span>
+    <br>
+    <input type="password" placeholder="Enter Password" formControlName="password1">
+    <br>
+    <span *ngIf="password1 && password1.invalid && password1.touched" style="color: red;">Please Enter Valid Input</span>
+    <br>
+    <button [disabled]="loginForm1.invalid">Submit Reactive Form</button>
+</form>
+```
