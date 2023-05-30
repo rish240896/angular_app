@@ -1,7 +1,6 @@
 # angular_app
 
-# Important Points about Angular
---------------------------------
+## Important Points about Angular
 
 - Angular creates single page applications. (No browser reloading)
 - Developed by Google
@@ -9,7 +8,6 @@
 - Use NPM (Node Package Manager) and CLI (Command Line Interface)
 
 ## Setup and Installation
-----------------------
 
 - Install Node + NPM (Using node software)
 - Install Angular CLI (cmd - npm install -g @angular/cli)
@@ -21,7 +19,6 @@
 - How to use another node version with the current version (Using nvm)
 
 ## File and Folder Structure
--------------------------
 
 - `package.json` => Details for the project such as name, version, libraries, etc.
 - `node_modules` => Libraries such as angular, form, routing, CSS, testing, etc.
@@ -43,7 +40,6 @@
 	   then it will be recreated whenever we run the application.
 	   
 ## Make First Change
------------------
 
 - `index.html` => Used to change the title for the application.
 - `app.component.html` => Used to change the content for the main page of the application.
@@ -54,7 +50,6 @@
 		{{title}}
 		
 ## Interpolation
--------------
 
 - Fetching data from TS file and display it on the HTML page using `{{}}`.
 
@@ -78,7 +73,7 @@ export class AppComponent {
 <p>{{getValue()}}</p>
 ```
 
-### Note: What we cannot do in Interpolation?
+## Note: What we cannot do in Interpolation?
 
 **app.component.html**
 
@@ -89,7 +84,7 @@ export class AppComponent {
 <h1>{{new title}}</h1>
 ```
 
-## Output:
+### Output:
 
 - Failed to compile because we cannot change the values here.
 - Failed to check the typeof title because we cannot check its type here.
@@ -104,54 +99,54 @@ export class AppComponent {
 <h1 class="{{title}}">{{title="Hello"}}</h1>
 ```
 
-# Angular CLI & Important Commands
+## Angular CLI & Important Commands
 
-## Installation
+### Installation
 
 - Run `npm install -g @angular/cli` to install Angular CLI globally.
 
-## Basic Commands
+### Basic Commands
 
 - Run `ng help` to view all the basic commands for the project.
 
-## Creating Components
+### Creating Components
 
 - Run `ng g c component_name` to create a component. It will generate four files: CSS, HTML, spec.ts, and ts.
 
-## Creating Modules
+### Creating Modules
 
 - Run `ng g m module_name` to create a module. It contains multiple components such as sign-in, sign-up, etc., and one module.ts file.
 
-## Creating Component Inside Module
+### Creating Component Inside Module
 
 - Run `ng g c module_name/component_name` to create a component inside a module.
 
-## Creating Classes
+### Creating Classes
 
 - Run `ng g class class_name` to create a class. It generates two files: spec.ts and ts file.
 
-## Creating Interfaces
+### Creating Interfaces
 
 - Run `ng g i interface_name` to create an interface. It generates one ts file.
 
-## Building the Application
+### Building the Application
 
 - Run `ng build` to create a distribution build file named `dist-build`. This file can be deployed on a server to run the application.
 
-# Component
+## Component
 
 - A component is a building block used for specific functionality such as header, footer, login, sign-up, etc.
 - It contains four files: CSS, HTML, spec.ts, and ts.
 - To use a component, copy the selector name from the ts file and use it as an HTML tag wherever you want to display it.
 - Note: The selector name can be changed from the ts file if desired.
 
-# Component with Inline Style & Template
+## Component with Inline Style & Template
 
 - Run `ng g c component_name --inline-style` to create a component with inline style. It contains three files: HTML, spec.ts, and ts. CSS code is written inside the ts file.
 - Run `ng g c component_name --inline-template` to create a component with inline template. It contains three files: spec.ts, ts, and CSS. HTML code is written inside the ts file.
 - Run `ng g c component_name --inline-template --inline-style` to create a component with inline style and template. It contains two files: spec.ts and ts. HTML and CSS are written inside the ts file.
 
-# Module
+## Module
 
 - A module is a complete functionality containing various components, services, and pipes.
 - Example:
