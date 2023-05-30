@@ -383,3 +383,158 @@ newUserDetails = [
   </ul>
 </ul>
 ```
+
+## Style Binding | Dynamic Style
+
+```typescript
+color = "green"
+bgcolor = "cyan"
+
+updateColor() {
+  this.color = "blue";
+  this.bgcolor = "yellow";
+}
+```
+
+```html
+<h1 [style.color]="color" [style.backgroundColor]="bgcolor">Rishabh</h1>
+<button (click)="updateColor()">Update Color</button>
+```
+
+## Header
+
+```css
+nav img {
+  width: 70px;
+}
+nav {
+  background-color: skyblue;
+  padding: 20px;
+}
+ul {
+  float: right;
+  list-style-type: none;
+}
+li {
+  margin-top: -10px;
+}
+ul li {
+  display: inline-block;
+  padding: 10px;
+}
+li a {
+  color: #fff;
+  text-decoration: none;
+  cursor: pointer;
+}
+```
+
+```html
+<nav>
+    <img src="https://angular.io/assets/images/logos/angular/logo-nav@2x.png" alt="logo-nav">
+    <ul>
+        <li><a href="">Home</a></li>
+        <li><a href="">About</a></li>
+        <li><a href="">Login</a></li>
+        <li><a href="">Signup</a></li>
+    </ul>
+</nav>
+```
+
+## Basic Form
+
+- First, we've to import FormsModule in app.module.ts file
+
+```typescript
+import { NgForm } from '@angular/forms';
+
+addingData: any = {};
+
+getFormData(data: NgForm) {
+  console.log(data);
+  this.addingData = data;
+}
+```
+
+```html
+<form #basicForm="ngForm" (ngSubmit)="getFormData(basicForm.value)">
+  <input type="text" ngModel name="user" placeholder="Enter Username">
+  <br><br>
+  <input type="text" ngModel name="email" placeholder="Enter User Email">
+  <br><br>
+  <input type="text" ngModel name="password" placeholder="Enter User Password">
+  <br><br>
+  <button>Register</button>
+</form>
+
+<p>User Name: {{addingData.user}}</p>
+<p>User Email: {{addingData.email}}</p>
+<p>User Password: {{addingData.password}}</p>
+```
+
+## Toggle Element | hide and show tag
+
+```typescript
+myFlag = true;
+
+toggleFun() {
+  this.myFlag = !this.myFlag;
+}
+```
+
+```html
+<button (click)="toggleFun()">Toggle</button>
+<h1 *ngIf="myFlag">Toggle This</h1>
+```
+
+## How to use Bootstrap with Angular
+
+`ng add @ng-bootstrap/ng-bootstrap` - Command to add Bootstrap in Angular.
+
+```html
+<p>
+	<ngb-alert [dismissible]="false">
+		<strong>Warning!</strong> Better check yourself, you're not looking too good.
+	</ngb-alert>
+</p>
+```
+
+## Material UI
+
+- `ng add @angular/material` - Command to add Material-UI in Angular.
+- Import Material-UI component inside app.module.ts file.
+`import { MatSliderModule } from '@angular/material/slider';`
+
+```html
+<mat-slider min="1" max="5" step="0.5" value="1.5">
+  <input matSliderThumb>
+</mat-slider>
+```
+
+## Todo list in Angular
+
+```typescript
+list: any[] = [];
+
+addTask(note: string) {
+  this.list.push({
+    id: this.list.length,
+    name: note
+  });
+
+  console.warn(this.list);
+}
+
+deleteTask(id: number) {
+  this.list = this.list.filter(note => note.id !== id);
+}
+```
+
+```html
+<input type="text" placeholder="Enter Note" #task>
+<button (click)="addTask(task.value)">Add Task</button>
+<br><br>
+<ul *ngFor="let item of list">
+  <li>{{item.name}} <button (click)="deleteTask(item.id)">Remove</button></li>
+</ul>
+```
