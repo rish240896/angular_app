@@ -1356,3 +1356,283 @@ getUserFormData(data: any) {
 }
 ```
 
+## Model and Interface
+
+- It is mainly used to define data structures and used to validate them.
+- create .ts file manually containing data.
+
+```typescript
+  export interface dataType
+  {
+    name:string,
+    id:number,
+    indian:boolean,
+    address:any
+  }
+```
+
+- Now call this data in any service or component.
+
+`service.ts` file
+
+```typescript
+import { dataType } from '../user';
+
+getData() {
+  const data:dataType={
+    name:'rishabh srivastava',
+    id:100,
+    indian:true,
+    address:"21, Noida, UP."
+  }
+  return data;
+}
+```
+
+## Routing Module or Module Routing
+
+- Using `app-routing.module.ts` file for all routings but in Routing Module we use each routing Module for each module.
+- If we have admin and user both in our application so we dont put all routes together in one routing file.
+- `ng g m admin --routing` => command to create separate routing file for each module.
+- `ng g c admin/login` => Creating admin components such as login or list.
+Import both components inside admin route file.
+
+```typescript
+const routes: Routes = [
+  {
+    path:'login',
+    component:LoginComponent
+  },
+  {
+    path:'list',
+    component:ListComponent
+  }
+];
+```
+
+- Add admin module in the main module `app.module.ts` file.
+
+`import { AdminModule } from './admin/admin.module';`
+
+```html
+<ul>
+  <li>
+    <a routerLink="login">Login</a>
+  </li>
+  <li>
+    <a routerLink="list">List</a>
+  </li>
+</ul>
+
+<router-outlet></router-outlet>
+```
+
+## Group Routing
+
+- Create separate routes for both admin and user inside module.
+- `ng g m admin --routing` => command to create separate routing file for each module.
+- `ng g m user --routing` => command to create separate routing file for each module.
+- Create separate login and list components for both admin and user.
+`ng g c admin/login`
+`ng g c admin/list`
+`ng g c user/login`
+`ng g c user/list`
+- Add admin and user module in the main module `app.module.ts` file.
+
+```typescript
+import { AdminModule } from './admin/admin.module';
+import { UserModule } from './user/user.module';
+```
+
+- Import both components (login & list) inside admin route file and user route file.
+
+**admin-routing.module.ts**
+
+```typescript
+const routes: Routes = [
+  {
+    path:'admin',
+    children:[
+      {
+        path:'login',
+        component:LoginComponent
+      },
+      {
+        path:'list',
+        component:ListComponent
+      }
+    ]
+  }
+];
+```
+
+**user-routing.module.ts**
+
+```typescript
+const routes: Routes = [
+  {
+    path:'user',
+    children:[
+      {
+        path:'login',
+        component:LoginComponent
+      },
+      {
+        path:'list',
+        component:ListComponent
+      }
+    ]
+  }
+];
+```
+
+```html
+<h1>Admin Page</h1>
+
+<ul>
+  <li>
+    <a routerLink="admin/login">Login</a>
+  </li>
+  <li>
+    <a routerLink="admin/list">List</a>
+  </li>
+</ul>
+
+<h1>User Page</h1>
+
+<ul>
+  <li>
+    <a routerLink="user/login">Login</a>
+  </li>
+  <li>
+    <a routerLink="user/list">List</a>
+  </li>
+</ul>
+
+<router-outlet></router-outlet>
+```
+
+## Lazy Loading
+
+- In Normal all routes and pages in our websites loaded whenever we run the application that will affect the performance of application.
+- Create separate routes for both admin and user inside module.
+`ng g m admin --routing` => command to create separate routing file for each module.
+`ng g m user --routing` => command to create separate routing file for each module.
+- Create separate login and list components for both admin and user.
+`ng g c admin/login`
+`ng g c admin/list`
+`ng g c user/login`
+`ng g c user/list`
+- Import both components (login & list) inside admin route file and user route file.
+
+**admin-routing.module.ts**
+
+```typescript
+const routes: Routes = [
+  {
+    path:'login',
+    component:LoginComponent
+  },
+  {
+    path:'list',
+    component:ListComponent
+  }
+];
+```
+
+**user-routing.module.ts**
+
+```typescript
+const routes: Routes = [
+  {
+    path:'login',
+    component:LoginComponent
+  },
+  {
+    path:'list',
+    component:ListComponent
+  }
+];
+```
+
+- Do not import AdminModule & UserModule inside `app.module.ts` file instead of that add the routing inside app-routing.module.ts file (Main Routing file).
+
+**app-routing.module.ts**
+
+```typescript
+const routes: Routes = [
+  {
+    path:'admin',
+    loadChildren:()=>import('./admin/admin.module')
+    .then(mod=>mod.AdminModule)
+  },
+  {
+    path:'user',
+    loadChildren:()=>import('./user/user.module')
+    .then(mod=>mod.UserModule)
+  }
+];
+```
+
+```html
+<h1>Admin Page</h1>
+
+<ul>
+  <li>
+    <a routerLink="admin/login">Login</a>
+  </li>
+  <li>
+    <a routerLink="admin/list">List</a>
+  </li>
+</ul>
+
+<h1>User Page</h1>
+
+<ul>
+  <li>
+    <a routerLink="user/login">Login</a>
+  </li>
+  <li>
+    <a routerLink="user/list">List</a>
+  </li>
+</ul>
+
+<router-outlet></router-outlet>
+```
+
+- Note: For checking lazy loading as testing just add console.log("Loading") inside `app.module.ts` file.
+- If it is lazy loading then at the time of any component loading it will display console message otherwise it will display message at starting of the app.
+
+## Lazy Loading component
+
+- To use component as lazy component import ViewContainerRef and ComponentFactoryResolver for that inside `app.component.ts` file.
+
+```typescript
+import { Component,ViewContainerRef,ComponentFactoryResolver } from '@angular/core';
+
+constructor(private callingapi:CallingapiService,private viewContainer:ViewContainerRef,
+                private cfr:ComponentFactoryResolver) { }
+
+async loadAdmin() {
+  this.viewContainer.clear();
+  const {ListComponent} = await import('./admin/list/list.component')
+  this.viewContainer.createComponent(
+    this.cfr.resolveComponentFactory(ListComponent)
+  )
+}
+
+async loadUser() {
+  this.viewContainer.clear();
+  const {ListComponent} = await import('./user/list/list.component')
+  this.viewContainer.createComponent(
+    this.cfr.resolveComponentFactory(ListComponent)
+  )
+}
+```
+
+```html
+<button (click)="loadAdmin()">Load Admin List</button>
+<button (click)="loadUser()">Load User List</button>
+```
+
+- Note: Now on the button click component will load and clear previous component if exist.
