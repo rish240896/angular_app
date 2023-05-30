@@ -1255,9 +1255,11 @@ export class FooterComponent implements OnInit {
 
 ## GET data from API and display
 
-- Component ==> Service ==> HttpModule ==> Server\
-  |____________________________|			      |\
-			      Angular						          Any Language
+<pre>
+Component ==> Service ==> HttpModule ==> Server
+|____________________________|			      |
+			      Angular                   Any Language
+</pre>
 
 - Import HttpClientModule inside app.module.ts file and add it to imports
 
