@@ -703,3 +703,143 @@ getValue(val8: HTMLInputElement) {
 <input type="text" #box8 name="name" placeholder="Enter Name">
 <button (click)="getValue(box8)">Get Value</button>
 ```
+
+## Basic TypeScript
+
+- Basic of types in TypeScript:
+
+1. number
+2. string
+3. boolean
+4. any
+5. define 2 types
+
+### define 2 types
+
+```typescript
+		getData(item:number | boolean)
+		{
+			if(typeof item === "number")
+			{
+				return item*20;
+			}
+		}
+ ```
+		
+- At the initial time of declaration we dont need to define the property because it automatically understand the type bydefault.
+
+### Example 1
+
+```typescript
+data: number = 20;			// correct
+data: string = "rishabh";	// correct
+data: number = "rishabh";	// incorrect
+```
+
+### Example 2
+
+```typescript
+getData(item: number) {
+  return item * 20;
+}
+
+this.getData("hello");		// Error: item value should be number for multiplication
+```
+
+### Example 3
+
+```typescript
+getData(item: number) {
+  return item * 20;
+}
+
+this.getData(10); 	// correct
+```
+
+### Example 4 (Defining object variables and functions)
+
+```typescript
+data: { name: string, phone: number } = { name: 'rishabh', phone: 9918352565 };
+
+getData(item: { name: string, phone: number }) {
+  return item;
+}
+```
+
+### Example 5 (Defining array variables and functions)
+
+```typescript
+data: string[] = ["abc", "def", "ghi"];
+
+getData(item: number[]) {
+  return item;
+}
+
+getItem() {
+  this.getData([20, 30, 40]);
+}
+```
+
+## Basic of Pipes
+
+- Pipes can transform format of one type of data to another type.
+- for eg: changing date format, case-sensitive string, changing currencies etc.
+- We can use Pipes inside html pages not in TS file.
+
+```typescript
+todayDate = new Date();
+```
+
+```html
+<h1>{{ title | lowercase }}</h1>
+<h1>{{ title | uppercase }}</h1>
+<h1>{{ todayDate }}</h1>
+<h1>{{ todayDate | date }}</h1>
+<h1>{{ todayDate | date: 'fullDate' }}</h1>
+```
+
+## Advance Pipes
+
+- Parameters with Pipes
+- Two Pipes together
+- Using Pipes directly on number value
+- Currency Pipes
+
+```typescript
+    userObj = {
+      name: 'rishabh',
+      age: 25,
+      city: 'lucknow'
+    }
+ ```
+ 
+ ```html
+<h1>{{ title | slice: 3:6 }}</h1>
+<h1>{{ title | slice: 3:6 | uppercase }}</h1>
+<h1>{{ userObj | json | uppercase }}</h1>
+<h1>{{ 2.3 | number:'3.3-5' }}</h1>
+<h2>{{ 20 | currency:'USD' }}</h2>
+<h2>{{ 20 | currency:'INR' }}</h2>
+```
+
+## Make custom pipes
+
+- `ng g p pipes/usdToinr` => command used for creating pipes.
+
+```typescript
+export class UsdToinrPipe implements PipeTransform {
+
+  transform(value: number, ...args: number[]): unknown {
+    const [x] = args;
+    return value*x;
+  }
+}
+```
+
+```html
+<h1>{{20 | usdToinr : 82.56}}</h1>
+```
+
+
+
+
