@@ -1147,4 +1147,206 @@ const routes: Routes = [
 <router-outlet></router-outlet>
 ```
 
+## Services
+
+- Services are classes that contain data, properties, or functions that can be used in multiple files.
+- To create a service, use the command `ng g s services/userdata` to create a service inside the services folder.
+
+```typescript
+export class UserdataService {
+
+  constructor() { }
+
+  users() {
+    return [
+      {
+        name: 'Rishabh',
+        city: 'Lucknow',
+        age: '26'
+      },
+      {
+        name: 'Vikas',
+        city: 'Etawah',
+        age: '26'
+      },
+      {
+        name: 'Akash',
+        city: 'Allahabad',
+        age: '25'
+      },
+      {
+        name: 'Bhavish',
+        city: 'Ghaziabad',
+        age: '29'
+      },
+      {
+        name: 'Satendra',
+        city: 'Etah',
+        age: '35'
+      }
+     ];
+  }
+}
+```
+
+- Import the service inside the .ts file where we want to use that data or service.
+
+```typescript
+import { UserdataService } from './services/userdata.service';
+
+storingUsersData: any;
+
+constructor(private userdata: UserdataService) {
+  console.log(userdata.users());
+  this.storingUsersData = userdata.users();
+}
+```
+
+- Now display the data in the HTML file.
+
+```html
+<ul>
+  <li *ngFor="let user of storingUsersData">
+    {{user.name}} : {{user.age}}
+  </li>
+</ul>
+```
+
+- If we want to use the same service data again in any component, such as the footer, we need to import UserdataService again, store the data in a variable, and display it in the HTML file.
+
+**footer.component.ts file**
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { UserdataService } from 'src/app/services/userdata.service';
+
+@Component({
+  selector: 'app-footer',
+  templateUrl: './footer.component.html',
+  styleUrls: ['./footer.component.css']
+})
+export class FooterComponent implements OnInit {
+
+  storingUsersData: any;
+
+  constructor(private userdata: UserdataService) {
+    console.log(userdata.users());
+    this.storingUsersData = userdata.users();
+  }
+
+  ngOnInit(): void {
+
+  }
+}
+```
+
+**footer.component.html file:**
+
+```html
+<div class="footer">
+  <h1>Footer</h1>
+  <ul>
+    <li *ngFor="let user of storingUsersData">
+      {{user.name}} : {{user.age}} : {{user.city}}
+    </li>
+  </ul>
+</div>
+```
+
+## GET data from API and display
+
+- Import HttpClientModule inside app.module.ts file and add it to imports
+
+```typescript
+import { HttpClientModule } from '@angular/common/http';
+```
+
+- Generate a service and import HttpClient in that service.
+
+```typescript
+import { HttpClient } from '@angular/common/http';
+
+export class CallingapiService {
+
+  baseUrl = "http://localhost:8085/users";
+
+  constructor(private http: HttpClient) { }
+
+  postUsers() {
+    return this.http.get(this.baseUrl);
+  }
+}
+```
+
+- Import the service inside the .ts file.
+
+```typescript
+import { CallingapiService } from './services/callingapi.service';
+
+allUsers: any;
+
+constructor(private callingapi: CallingapiService) {
+  console.log(userdata.users());
+  this.storingUsersData = userdata.users();
+
+  callingapi.postUsers().subscribe((data) => {
+    console.log(data);
+    this.allUsers = data;
+  });
+}
+```
+
+- Display all the data in the HTML file.
+
+```html
+<ul>
+  <li *ngFor="let user of allUsers">
+    <h3>User Id: {{user.userId}}</h3>
+    <h3>Name: {{user.name}}</h3>
+    <h3>Email: {{user.email}}</h3>
+    <h3>About: {{user.about}}</h3>
+  </li>
+</ul>
+```
+
+## POST API Method
+
+- Create a POST service in the service file and import HttpClient
+
+```typescript
+import { HttpClient } from '@angular/common/http';
+
+postUsers(data: any) {
+  return this.http.post(this.baseUrl, data);
+}
+```
+
+- Import FormsModule in app.module.ts file to create forms.
+
+```typescript
+import { FormsModule } from '@angular/forms';
+```
+
+```html
+<form #usersForm="ngForm" (ngSubmit)="getUserFormData(usersForm.value)">
+  <input type="text" ngModel name="name" placeholder="Enter Your Name">
+  <br><br>
+  <input type="email" ngModel name="email" placeholder="Enter Your Email">
+  <br><br>
+  <input type="text" ngModel name="about" placeholder="Tell me something about yourself">
+  <br><br>
+  <button>Register Here</button>
+  <br><br>
+</form>
+```
+
+- Use the POST service in the .ts file.
+
+```typescript
+getUserFormData(data: any) {
+  this.callingapi.postUsers(data).subscribe((savedData) => {
+    console.log(savedData);
+  });
+}
+```
 
