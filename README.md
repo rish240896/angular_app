@@ -967,3 +967,184 @@ get password1() {
     <button [disabled]="loginForm1.invalid">Submit Reactive Form</button>
 </form>
 ```
+
+## Directives | custom | example
+
+- `ngFor`, `ngIf`, etc. are all directives.
+- Directives are classes that provide additional features to our HTML elements.
+- To create our own directive, use the command `ng g directive directives/redEl`.
+- Import `ElementRef` inside the .ts file of the directive.
+
+```typescript
+import { Directive, ElementRef } from '@angular/core';
+
+@Directive({
+  selector: '[appRedEl]'
+})
+export class RedElDirective {
+
+  constructor(el: ElementRef) { 
+    el.nativeElement.style.color = "red";
+  }
+
+}
+```
+
+```html
+<h1 appRedEl>Own Directive</h1>
+<p appRedEl>Using Directive for practice</p>
+```
+
+## Basic Routing
+
+- Create components such as home, user, and about.
+- Add routing for those components inside app-routing.module.ts file.
+  
+```typescript
+const routes: Routes = [
+  {
+    path: 'user',
+    component: UserComponent
+  },
+  {
+    path: '',
+    component: HomeComponent
+  },
+  {
+    path: 'about',
+    component: AboutComponent
+  }
+];
+```
+
+- Use these components in any page by adding routerLink and router-outlet tags in the .html page.
+
+```html
+<a routerLink="">Home</a>
+<br>
+<a routerLink="user">User</a>
+<br>
+<a routerLink="about">About</a>
+<br>
+<router-outlet></router-outlet>
+```
+
+## Dynamic Routing in Angular
+
+- Add an ID or value to which we have to route with a value.
+
+```typescript
+const routes: Routes = [
+  {
+    path: 'user/:id',
+    component: UserComponent
+  },
+  {
+    path: '',
+    component: HomeComponent
+  },
+  {
+    path: 'about',
+    component: AboutComponent
+  }
+];
+```
+
+- Import ActivatedRoute to fetch information on the page based on the ID in user.component.ts file.
+
+```typescript
+export class UserComponent implements OnInit {
+  constructor(private route: ActivatedRoute) {}
+
+  userId: any;
+
+  ngOnInit(): void {
+    console.log("User Id is :", this.route.snapshot.paramMap.get('id'));
+    this.userId = this.route.snapshot.paramMap.get('id');
+  }
+}
+```
+
+- Display information on the HTML page.
+
+```html
+<h1>User Id is {{userId}}</h1>
+```
+
+## Wild Card | 404 page routing
+
+- Create an error-page component and add its routing inside app-routing.module.ts file.
+- Add a wildcard inside routing, which means if no page is found with the given URL, this page will open.
+
+```typescript
+const routes: Routes = [
+  {
+    path: 'user/:id',
+    component: UserComponent
+  },
+  {
+    path: '',
+    component: HomeComponent
+  },
+  {
+    path: 'about',
+    component: AboutComponent
+  },
+  {
+    path: '**',
+    component: ErrorPageComponent
+  }
+];
+```
+
+## Child Routing
+
+- When we want to create pages inside pages, we call them child routes.
+- Create child routes, e.g., About Page - About Me and About Company (Two Components).
+- Add routing for them inside app-routing.module.ts file.
+
+```typescript
+const routes: Routes = [
+  {
+    path: 'user/:id',
+    component: UserComponent
+  },
+  {
+    path: '',
+    component: HomeComponent
+  },
+  {
+    path: 'about',
+    component: AboutComponent,
+    children: [
+      {
+        path: 'company',
+        component: AboutCompanyComponent
+      },
+      {
+        path: 'me',
+        component: AboutMeComponent
+      }
+    ]
+  },
+  {
+    path: '**',
+    component: ErrorPageComponent
+  }
+];
+```
+
+- Add links for both routes inside the About Page HTML page.
+
+```html
+<h1>About Page</h1>
+<br>
+<br>
+<a routerLink="company">About Company</a>
+<br>
+<a routerLink="me">About Me</a>
+
+<router-outlet></router-outlet>
+```
+
+
