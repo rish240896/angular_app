@@ -846,7 +846,7 @@ export class UsdToinrPipe implements PipeTransform {
 - Forms Type in Angular
 1. Template-driven form => Mostly work done in the Component template. (Work with Html Page)
 2. Reactive Form => Mostly work done in the component class. (Work with TS File)
-- Data Flow with Forms
+- Data Flow with Forms\
 Template ==> Class ==> Service(API) ==> Database
 
 ### 1. Template-driven form
