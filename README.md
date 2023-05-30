@@ -842,7 +842,8 @@ export class UsdToinrPipe implements PipeTransform {
 
 ## Form introduction
 
-- To submit any information to Database but angular cannot connect to database. We send data to API and API updates it to the database. For example, Login, Signup, Post, Google Search is also a type of form, etc.
+- To submit any information to Database but angular cannot connect to database. 
+- We send data to API and API updates it to the database. For example, Login, Signup, Post, Google Search is also a type of form, etc.
 - Forms Type in Angular
 1. Template-driven form => Mostly work done in the Component template. (Work with Html Page)
 2. Reactive Form => Mostly work done in the component class. (Work with TS File)
